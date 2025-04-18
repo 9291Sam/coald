@@ -1,25 +1,20 @@
-[gd_scene load_steps=12 format=3 uid="uid://piq1qo6dhgdh"]
+[gd_scene load_steps=15 format=3 uid="uid://piq1qo6dhgdh"]
 
 [ext_resource type="PackedScene" uid="uid://brpt71jl5cg2q" path="res://scenes/player.tscn" id="1_8teri"]
-[ext_resource type="Texture2D" uid="uid://ya235vbyvsuk" path="res://test_scene_assets/fakepngcat.png" id="2_87uvm"]
 [ext_resource type="Script" uid="uid://bld284tee5b0q" path="res://test_scene_assets/ButtonInteractible.gd" id="2_dgpk1"]
 [ext_resource type="AudioStream" uid="uid://bda1e85y0na7r" path="res://test_scene_assets/miau.ogg" id="3_dq0nh"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e2q4g"]
-sky_top_color = Color(0.371817, 5.62528e-07, 9.62615e-08, 1)
-sky_horizon_color = Color(0.697213, 0.5, 0.52749, 1)
-sky_energy_multiplier = 0.85
-ground_bottom_color = Color(0.417035, 0, 0.109961, 1)
-ground_horizon_color = Color(0.697213, 0.5, 0.52749, 1)
-
-[sub_resource type="Sky" id="Sky_6brtm"]
-sky_material = SubResource("ProceduralSkyMaterial_e2q4g")
+[ext_resource type="PackedScene" uid="uid://csvsyu30x01vw" path="res://seb_assets/train.tscn" id="4_7mycd"]
+[ext_resource type="PackedScene" uid="uid://ux28kgv0xqoq" path="res://seb_assets/station.tscn" id="5_272bh"]
+[ext_resource type="PackedScene" uid="uid://lm1lawys2f7c" path="res://seb_assets/tracks.tscn" id="6_5vw27"]
+[ext_resource type="Script" uid="uid://dq4s7x1u5c5tp" path="res://addons/zylann.hterrain/hterrain.gd" id="7_5vw27"]
+[ext_resource type="Resource" uid="uid://cdwkkug7vsq36" path="res://terraindata/data.hterrain" id="8_4c57u"]
+[ext_resource type="Script" uid="uid://dvwwu1d8rptjf" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="8_kek77"]
+[ext_resource type="Texture2D" uid="uid://goi1uj0p76xa" path="res://seb_assets/snow-terrain_0002_01_S_L.jpg" id="9_kek77"]
 
 [sub_resource type="Environment" id="Environment_qbkgc"]
-background_mode = 2
-sky = SubResource("Sky_6brtm")
-tonemap_mode = 2
-glow_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 0.5571
+volumetric_fog_albedo = Color(0, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yjcof"]
 albedo_color = Color(1, 0, 0, 1)
@@ -27,16 +22,15 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_52idf"]
 size = Vector3(0.272949, 0.172974, 0.234375)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6gkoj"]
-albedo_texture = ExtResource("2_87uvm")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_vcox7"]
-material = SubResource("StandardMaterial3D_6gkoj")
+[sub_resource type="Resource" id="Resource_4c57u"]
+script = ExtResource("8_kek77")
+mode = 0
+textures = [[ExtResource("9_kek77")], [null]]
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_8teri")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48323, 0)
+transform = Transform3D(0.639654, 0, -0.768663, 0, 1, 0, 0.768663, 0, 0.639654, -1.0652, 0.551473, 1.75106)
 
 [node name="TestPlace" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.485046, 0.712285, 0.156724)
@@ -44,18 +38,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.485046, 0.712285, 0.156724
 [node name="WorldEnvironment" type="WorldEnvironment" parent="TestPlace"]
 environment = SubResource("Environment_qbkgc")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="TestPlace"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.114594, 0, 2.65455)
-use_collision = true
-size = Vector3(3.93793, 1, 11.9994)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="TestPlace"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.114594, 0.621386, -2.90825)
-use_collision = true
-size = Vector3(3.93793, 0.24115, 0.873812)
-
 [node name="CSGBox3D3" type="CSGBox3D" parent="TestPlace"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.31979, 0.773056, -2.74449)
+transform = Transform3D(-0.031341, -0.999509, 0, 0.999509, -0.031341, 0, 0, 0, 1, 1.31979, 0.104445, 2.00414)
 use_collision = true
 size = Vector3(0.201775, 0.0473022, 0.202767)
 material = SubResource("StandardMaterial3D_yjcof")
@@ -73,15 +57,43 @@ stream = ExtResource("3_dq0nh")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="TestPlace"]
 transform = Transform3D(1, 0, 0, 0, 0.849479, 0.527623, 0, -0.527623, 0.849479, 0, 3.38979, 3.26035)
-light_color = Color(0.585847, 1.8049e-06, 4.33177e-07, 1)
+light_color = Color(5.71553e-08, 0.041619, 0.0673964, 1)
 light_energy = 3.101
+shadow_enabled = true
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="TestPlace"]
-transform = Transform3D(1, 0, 0, 0, -0.774072, 0.633097, 0, -0.633097, -0.774072, 0, 3.38979, -1.66433)
-light_color = Color(1, 0.592798, 0.532572, 1)
+transform = Transform3D(1, 0, 0, 0, -0.774072, 0.633097, 0, -0.633097, -0.774072, 1.51052, 3.38979, -1.66433)
 light_energy = 1.97
+shadow_enabled = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TestPlace"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.156692, 1.68591, -3.2028)
-visible = false
-mesh = SubResource("PlaneMesh_vcox7")
+[node name="train" parent="TestPlace" instance=ExtResource("4_7mycd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177556, -0.751807, 4.24154)
+
+[node name="station" parent="." instance=ExtResource("5_272bh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.445043, -2.38419e-07, 2.67989)
+
+[node name="tracks" parent="." instance=ExtResource("6_5vw27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.304487, 0.0182563, 1.24434)
+
+[node name="tracks" parent="tracks" instance=ExtResource("6_5vw27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00797939, -0.00835323, -23.9779)
+
+[node name="HTerrain" type="Node3D" parent="."]
+script = ExtResource("7_5vw27")
+centered = true
+_terrain_data = ExtResource("8_4c57u")
+chunk_size = 32
+collision_enabled = true
+collision_layer = 1
+collision_mask = 1
+shader_type = "Classic4Lite"
+custom_shader = null
+custom_globalmap_shader = null
+texture_set = SubResource("Resource_4c57u")
+render_layers = 1
+cast_shadow = 1
+shader_params/u_ground_uv_scale = 20
+shader_params/u_depth_blending = true
+shader_params/u_triplanar = null
+shader_params/u_tile_reduction = null
+metadata/_custom_type_script = "uid://dq4s7x1u5c5tp"

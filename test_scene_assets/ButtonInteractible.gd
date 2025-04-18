@@ -6,6 +6,6 @@ extends Interactible3D
 
 
 func _interact():
-	cat.show()
+	#cat.show()
 	audioPlayer.play()
 	self.CanInteract = false
