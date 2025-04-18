@@ -13,12 +13,15 @@ enum CharacterState {
 @onready var InteractRaycast := $head/RayCast3D
 @onready var camera := $head/Camera3D
 @onready var animator := $AnimationPlayer
+var camera_original_position : Vector3
+var shake_timer = 0.0
+var is_shaking = false
 var currentBody : Interactible3D = null
 var currentState : CharacterState = CharacterState.WALKING
 @onready var SPEED = DEFAULT_SPEED # DEFAULT_SPEED doesn't load until _ready(), so we have to use @onready (you could also just move SPEED a bit to the bottom)
 
 # Options
-@export var DEFAULT_SPEED := 3
+@export var DEFAULT_SPEED := 0.76
 @export var JUMP_VELOCITY := 2.5
 @export var mouse_sensitivity := 0.1
 @export var SPRINT_SPEED := 3.5
@@ -26,6 +29,7 @@ var currentState : CharacterState = CharacterState.WALKING
 var inputEnabled := true # can the player move?
 var aimlookEnabled := true # can the player look around?
 var interactionsEnabled := true # can the player interact with Interactibles3D?
+var violent_camera_shake := false;
 
 #region Main control flow 
 
@@ -33,6 +37,24 @@ func _ready():
 	$MeshInstance3D.hide()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	GameManager.player = self
+	camera_original_position = camera.transform.origin
+	
+func _process(delta):
+	if is_shaking:
+		shake_timer -= delta
+		if shake_timer <= 0:
+			is_shaking = false
+			camera.transform.origin = camera_original_position
+		else:
+			var shake_modifier = 0.05 if violent_camera_shake else 0.015;
+			camera.transform.origin = camera_original_position + Vector3(
+				randf_range(-shake_modifier, shake_modifier),
+				randf_range(-shake_modifier, shake_modifier),
+				randf_range(-shake_modifier, shake_modifier)
+			)
+			
+var moving_time_since_last_shake := 0.0;
+var time_between_shakes := 0.7
 
 func _physics_process(delta: float) -> void:
 	if !inputEnabled:
@@ -43,15 +65,22 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		
 	
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
+		moving_time_since_last_shake += delta;
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
+		if moving_time_since_last_shake > time_between_shakes:
+			start_camera_shake(0.15)
+			moving_time_since_last_shake = 0.0
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED) 
+		
+		
 	
 	# All of the other processing functions go here
 	_process_interact()
@@ -93,6 +122,12 @@ func _unhandled_input(event : InputEvent):
 		mouseInput.y += event.relative.y
 		self.rotation_degrees.y -= mouseInput.x * mouse_sensitivity
 		head.rotation_degrees.x -= mouseInput.y * mouse_sensitivity
+		
+
+func start_camera_shake(time):
+	if !is_shaking:
+		is_shaking = true
+		shake_timer = time
 
 #endregion
 
@@ -100,20 +135,20 @@ func _unhandled_input(event : InputEvent):
 
 ## Handles the input for character state changing. 
 func _handle_states():
-	if Input.is_action_just_pressed("crouch"):
-		if currentState == CharacterState.CROUCHING:
-			change_state(CharacterState.WALKING)
-		else:
-			change_state(CharacterState.CROUCHING)
-	elif Input.is_action_pressed("sprint"):
-		if currentState == CharacterState.CROUCHING:
-			return
-		if currentState == CharacterState.SPRINTING:
-			return
-		change_state(CharacterState.SPRINTING)
-	else:
-		if currentState != CharacterState.WALKING and currentState != CharacterState.CROUCHING:
-			change_state(CharacterState.WALKING)
+	#if Input.is_action_just_pressed("crouch"):
+		#if currentState == CharacterState.CROUCHING:
+			#change_state(CharacterState.WALKING)
+		#else:
+			#change_state(CharacterState.CROUCHING)
+	#elif Input.is_action_pressed("sprint"):
+		#if currentState == CharacterState.CROUCHING:
+			#return
+		#if currentState == CharacterState.SPRINTING:
+			#return
+		#change_state(CharacterState.SPRINTING)
+	#else:
+	if currentState != CharacterState.WALKING and currentState != CharacterState.CROUCHING:
+		change_state(CharacterState.WALKING)
 
 ## Handles the state changing itself. This function must be fired only once, and not run every single frame. 
 func change_state(state : CharacterState):
