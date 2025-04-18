@@ -29,7 +29,7 @@ var currentState : CharacterState = CharacterState.WALKING
 var inputEnabled := true # can the player move?
 var aimlookEnabled := true # can the player look around?
 var interactionsEnabled := true # can the player interact with Interactibles3D?
-var violent_camera_shake := false;
+var camera_shake_violence := 0.01; # 0.05 violent, 0.01
 
 #region Main control flow 
 
@@ -46,11 +46,10 @@ func _process(delta):
 			is_shaking = false
 			camera.transform.origin = camera_original_position
 		else:
-			var shake_modifier = 0.05 if violent_camera_shake else 0.015;
 			camera.transform.origin = camera_original_position + Vector3(
-				randf_range(-shake_modifier, shake_modifier),
-				randf_range(-shake_modifier, shake_modifier),
-				randf_range(-shake_modifier, shake_modifier)
+				randf_range(-camera_shake_violence, camera_shake_violence),
+				randf_range(-camera_shake_violence, camera_shake_violence),
+				randf_range(-camera_shake_violence, camera_shake_violence)
 			)
 			
 var moving_time_since_last_shake := 0.0;
@@ -74,7 +73,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 		if moving_time_since_last_shake > time_between_shakes:
-			start_camera_shake(0.15)
+			start_camera_shake(0.075)
 			moving_time_since_last_shake = 0.0
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)

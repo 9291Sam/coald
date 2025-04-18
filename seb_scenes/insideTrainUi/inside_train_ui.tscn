@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfgl8xtgqt3c0"]
+
+[ext_resource type="Script" uid="uid://cplrkpg1a4x71" path="res://seb_scenes/insideTrainUi/inside_train_ui.gd" id="1_xjaor"]
+[ext_resource type="Texture2D" uid="uid://c44uqtm3txyr1" path="res://seb_scenes/insideTrainUi/pressure_gage.svg" id="2_43f08"]
+[ext_resource type="Texture2D" uid="uid://dla2ynp4ifdk1" path="res://seb_scenes/insideTrainUi/temperature.svg" id="3_8nas0"]
+
+[node name="InsideTrainUi" type="Node2D"]
+script = ExtResource("1_xjaor")
+
+[node name="pressure_gague" type="Sprite2D" parent="."]
+position = Vector2(403.5, 208)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_43f08")
+
+[node name="ColorRect" type="ColorRect" parent="pressure_gague"]
+visibility_layer = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -282.0
+offset_right = -274.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 6.08073
+pivot_offset = Vector2(8, 0)
+color = Color(0, 0, 0, 1)
+
+[node name="Temperature" type="Sprite2D" parent="."]
+position = Vector2(195, 208)
+scale = Vector2(0.256, 0.25)
+texture = ExtResource("3_8nas0")
+
+[node name="ColorRect" type="ColorRect" parent="Temperature"]
+visibility_layer = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -289.812
+offset_top = -282.0
+offset_right = -273.812
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 5.71246
+pivot_offset = Vector2(8, 0)
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 125.0
+offset_top = 111.0
+offset_right = 283.0
+offset_bottom = 134.0
+text = "Engine Temperature"
+
+[node name="Label" type="Label" parent="Label"]
+offset_left = 218.5
+offset_top = -6.0
+offset_right = 342.5
+offset_bottom = 17.0
+text = "Engine Pressure"

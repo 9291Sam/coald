@@ -1,0 +1,90 @@
+[gd_scene load_steps=9 format=3 uid="uid://blwpj2l13c312"]
+
+[ext_resource type="PackedScene" uid="uid://brpt71jl5cg2q" path="res://scenes/player.tscn" id="2_ha7gw"]
+[ext_resource type="PackedScene" uid="uid://cfgl8xtgqt3c0" path="res://seb_scenes/insideTrainUi/inside_train_ui.tscn" id="2_prddy"]
+[ext_resource type="Script" uid="uid://vfm52fpggtq2" path="res://seb_scenes/insideTrain/temp_up_button.gd" id="3_prddy"]
+[ext_resource type="Script" uid="uid://8ry5uostwsqe" path="res://seb_scenes/insideTrain/temp_down_button.gd" id="4_2il1l"]
+[ext_resource type="Script" uid="uid://ca57dsd460x76" path="res://seb_scenes/insideTrain/pressure_down_button.gd" id="5_2c3bn"]
+[ext_resource type="Script" uid="uid://bi8pbxxhdbn3l" path="res://seb_scenes/insideTrain/pressure_up_button.gd" id="5_jo0r2"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_48sdy"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2il1l"]
+size = Vector3(0.272949, 0.172974, 0.234375)
+
+[node name="InsideTrain" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("2_ha7gw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0160423, 0.736395, -1.70546)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01955, 0, -0.996331)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.328943, 0.0900562, -1.79557)
+use_collision = true
+size = Vector3(3.83228, 1, 4.50977)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(-0.0349867, 0.999388, 0, -0.999388, -0.0349867, 0, 0, 0, 1, 2.483, 1.20035, -1.79557)
+size = Vector3(3.83228, 1, 4.50977)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+
+[node name="InsideTrainUi" parent="SubViewport" instance=ExtResource("2_prddy")]
+temperature_gague_normalized = 0.0
+pressure_gague_normalized = 0.0
+coal_volume = 0.0
+
+[node name="gague_display" type="Sprite3D" parent="."]
+transform = Transform3D(-1.09278e-08, 0, 0.25, 0, 0.25, 0, -0.25, 0, -1.09278e-08, -1.04601, 1.14777, -1.38128)
+texture = SubResource("ViewportTexture_48sdy")
+
+[node name="temo_up_button" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.31298, 1.19763, -0.9368)
+script = ExtResource("3_prddy")
+InteractText = "Press [E] to increase temperature"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="temo_up_button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178223, 0.0786743, 0.0214844)
+shape = SubResource("BoxShape3D_2il1l")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="temo_up_button"]
+size = Vector3(0.275879, 0.105957, 0.204102)
+
+[node name="temp_down_button" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28442, 0.806846, -0.969752)
+script = ExtResource("4_2il1l")
+InteractText = "Press [E] to decreate temperature"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="temp_down_button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178223, 0.0786743, 0.0214844)
+shape = SubResource("BoxShape3D_2il1l")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="temp_down_button"]
+size = Vector3(0.275879, 0.105957, 0.204102)
+
+[node name="pressure_up_button" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28442, 1.21366, -2.13034)
+script = ExtResource("5_jo0r2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pressure_up_button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178223, 0.0786743, 0.0214844)
+shape = SubResource("BoxShape3D_2il1l")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="pressure_up_button"]
+size = Vector3(0.275879, 0.105957, 0.204102)
+
+[node name="pressure_down_button" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28479, 0.806846, -2.14544)
+script = ExtResource("5_2c3bn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pressure_down_button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178223, 0.0786743, 0.0214844)
+shape = SubResource("BoxShape3D_2il1l")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="pressure_down_button"]
+size = Vector3(0.275879, 0.105957, 0.204102)

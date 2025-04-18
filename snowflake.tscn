@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxj4g3rsr3f2o"]
+
+[ext_resource type="PackedScene" uid="uid://bg4xqsflijf6c" path="res://seb_assets/cc0_-_snowflake_1k.glb" id="1_fj7hp"]
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_fj7hp")]
