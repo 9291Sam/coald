@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://blwpj2l13c312"]
+[gd_scene load_steps=10 format=3 uid="uid://blwpj2l13c312"]
 
 [ext_resource type="PackedScene" uid="uid://brpt71jl5cg2q" path="res://scenes/player.tscn" id="2_ha7gw"]
 [ext_resource type="PackedScene" uid="uid://cfgl8xtgqt3c0" path="res://seb_scenes/insideTrainUi/inside_train_ui.tscn" id="2_prddy"]
 [ext_resource type="Script" uid="uid://vfm52fpggtq2" path="res://seb_scenes/insideTrain/temp_up_button.gd" id="3_prddy"]
 [ext_resource type="Script" uid="uid://8ry5uostwsqe" path="res://seb_scenes/insideTrain/temp_down_button.gd" id="4_2il1l"]
+[ext_resource type="Script" uid="uid://dhlkpke1buris" path="res://seb_scenes/go_to_lever.gd" id="4_3dcbo"]
 [ext_resource type="Script" uid="uid://ca57dsd460x76" path="res://seb_scenes/insideTrain/pressure_down_button.gd" id="5_2c3bn"]
 [ext_resource type="Script" uid="uid://bi8pbxxhdbn3l" path="res://seb_scenes/insideTrain/pressure_up_button.gd" id="5_jo0r2"]
 
@@ -35,9 +36,6 @@ transparent_bg = true
 handle_input_locally = false
 
 [node name="InsideTrainUi" parent="SubViewport" instance=ExtResource("2_prddy")]
-temperature_gague_normalized = 0.0
-pressure_gague_normalized = 0.0
-coal_volume = 0.0
 
 [node name="gague_display" type="Sprite3D" parent="."]
 transform = Transform3D(-1.09278e-08, 0, 0.25, 0, 0.25, 0, -0.25, 0, -1.09278e-08, -1.04601, 1.14777, -1.38128)
@@ -87,4 +85,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178223, 0.0786743, 0.0214
 shape = SubResource("BoxShape3D_2il1l")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="pressure_down_button"]
+size = Vector3(0.275879, 0.105957, 0.204102)
+
+[node name="leave_train_button" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.373579, 0.973231, -0.104012)
+script = ExtResource("4_3dcbo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="leave_train_button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178223, 0.0786743, 0.0214844)
+shape = SubResource("BoxShape3D_2il1l")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="leave_train_button"]
 size = Vector3(0.275879, 0.105957, 0.204102)

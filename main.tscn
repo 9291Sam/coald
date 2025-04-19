@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://piq1qo6dhgdh"]
 
 [ext_resource type="PackedScene" uid="uid://brpt71jl5cg2q" path="res://scenes/player.tscn" id="1_8teri"]
-[ext_resource type="Script" uid="uid://bld284tee5b0q" path="res://test_scene_assets/ButtonInteractible.gd" id="2_dgpk1"]
+[ext_resource type="Script" uid="uid://bld284tee5b0q" path="res://test_scene_assets/go_to_train_button.gd" id="2_dgpk1"]
 [ext_resource type="PackedScene" uid="uid://csvsyu30x01vw" path="res://seb_assets/train.tscn" id="4_7mycd"]
 [ext_resource type="PackedScene" uid="uid://ux28kgv0xqoq" path="res://seb_assets/station.tscn" id="5_272bh"]
 [ext_resource type="PackedScene" uid="uid://lm1lawys2f7c" path="res://seb_assets/tracks.tscn" id="6_5vw27"]

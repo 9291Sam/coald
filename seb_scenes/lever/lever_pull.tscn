@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cx11eo1e5bev2"]
+
+[ext_resource type="PackedScene" uid="uid://csvsyu30x01vw" path="res://seb_assets/train.tscn" id="1_j3anv"]
+[ext_resource type="Script" uid="uid://bld284tee5b0q" path="res://test_scene_assets/go_to_train_button.gd" id="2_y6fja"]
+[ext_resource type="PackedScene" uid="uid://brpt71jl5cg2q" path="res://scenes/player.tscn" id="3_iw334"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iw334"]
+size = Vector3(0.272949, 0.172974, 0.234375)
+
+[node name="LeverPull" type="Node3D"]
+
+[node name="train" parent="." instance=ExtResource("1_j3anv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.89473, 0.461695, 1.09441)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14217, -0.73575, 0)
+use_collision = true
+size = Vector3(100, 1, 100)
+
+[node name="go_back_inside_button" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.31974, 1.19215, -0.932326)
+script = ExtResource("2_y6fja")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="go_back_inside_button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178223, 0.0786743, 0.0214844)
+shape = SubResource("BoxShape3D_iw334")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="go_back_inside_button"]
+size = Vector3(0.275879, 0.105957, 0.204102)
+
+[node name="Player" parent="." instance=ExtResource("3_iw334")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.76685, -0.00973773, 0.261016)
