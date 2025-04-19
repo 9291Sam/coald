@@ -1,0 +1,22 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://6m7beq8j4ye5"]
+
+[resource]
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_box_extents = Vector3(5, 0.1, 5)
+angle_min = -16.5
+angle_max = 376.6
+initial_velocity_max = 1.2
+gravity = Vector3(21, -3.375, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = 7.85
+turbulence_enabled = true
+turbulence_noise_strength = 1.22
+turbulence_noise_scale = 2.146
+turbulence_noise_speed = Vector3(0, -2.51, 0)
+turbulence_noise_speed_random = 2.67
+turbulence_influence_max = 0.315
+turbulence_initial_displacement_min = 1.49012e-06
+turbulence_initial_displacement_max = 47.9
+collision_mode = 2
+collision_use_scale = true

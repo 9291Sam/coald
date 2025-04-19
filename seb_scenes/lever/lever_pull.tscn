@@ -1,9 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://cx11eo1e5bev2"]
+[gd_scene load_steps=8 format=3 uid="uid://cx11eo1e5bev2"]
 
 [ext_resource type="PackedScene" uid="uid://csvsyu30x01vw" path="res://seb_assets/train.tscn" id="1_j3anv"]
-[ext_resource type="Script" uid="uid://bld284tee5b0q" path="res://test_scene_assets/go_to_train_button.gd" id="2_y6fja"]
 [ext_resource type="PackedScene" uid="uid://brpt71jl5cg2q" path="res://scenes/player.tscn" id="3_iw334"]
+[ext_resource type="Material" uid="uid://dp5qqws7h0dn2" path="res://snowflake_process_material.tres" id="4_ovhle"]
 [ext_resource type="Environment" uid="uid://cxqg2sxxgpl4e" path="res://world_background_env.tres" id="4_svmf2"]
+[ext_resource type="SphereMesh" uid="uid://b1rksv11b8oh1" path="res://snowflake_sphere.tres" id="5_a3pqi"]
+
+[sub_resource type="GDScript" id="GDScript_5vw27"]
+script/source = "extends Interactible3D
+
+func _interact():
+	get_tree().change_scene_to_file(\"res://seb_scenes/insideTrain/InsideTrain.tscn\")
+	#self.CanInteract = false
+"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iw334"]
 size = Vector3(0.272949, 0.172974, 0.234375)
@@ -19,8 +28,8 @@ use_collision = true
 size = Vector3(100, 1, 100)
 
 [node name="go_back_inside_button" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.31974, 1.19215, -0.932326)
-script = ExtResource("2_y6fja")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.591383, 1.19215, -1.32469)
+script = SubResource("GDScript_5vw27")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="go_back_inside_button"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178223, 0.0786743, 0.0214844)
@@ -30,7 +39,16 @@ shape = SubResource("BoxShape3D_iw334")
 size = Vector3(0.275879, 0.105957, 0.204102)
 
 [node name="Player" parent="." instance=ExtResource("3_iw334")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.76685, -0.00973773, 0.261016)
+transform = Transform3D(-0.670944, 0, -0.741508, 0, 1, 0, 0.741508, 0, -0.670944, -1.69978, -0.00973773, -1.45719)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Player"]
+transform = Transform3D(0.639654, 0, 0.768663, 0, 1, 0, -0.768663, 0, 0.639654, 0, 2.5507, 0)
+cast_shadow = 0
+amount = 524688
+lifetime = 2.44
+randomness = 0.7
+process_material = ExtResource("4_ovhle")
+draw_pass_1 = ExtResource("5_a3pqi")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("4_svmf2")

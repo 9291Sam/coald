@@ -1,8 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://jv4og0qgm7lt"]
+[gd_scene load_steps=3 format=3 uid="uid://jv4og0qgm7lt"]
 
 [ext_resource type="PackedScene" uid="uid://bnbcdbsjc02fj" path="res://seb_scenes/insideTrain/inside_train.glb" id="1_211ca"]
+[ext_resource type="Script" uid="uid://g2ls5yykblxd" path="res://fire_light.gd" id="2_frcoc"]
 
 [node name="inside_train" instance=ExtResource("1_211ca")]
 
 [node name="InsideTrain" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 0.333417, 0, 0, 0, 0.670115, 0, 0, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47654, -1.75824, 0)
+light_color = Color(0.787557, 0.485185, 0.269187, 1)
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_normal_bias = 1.952
+shadow_transmittance_bias = 3.402
+shadow_blur = 0.0
+distance_fade_enabled = true
+script = ExtResource("2_frcoc")

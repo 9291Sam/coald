@@ -102,11 +102,14 @@ func _process_interact():
 		plrGUI.update_text("")
 		return
 	if collider == currentBody and not Input.is_action_just_pressed("interact"): # This is a bit hacky imo, but works
-		plrGUI.update_text(currentBody.InteractText)
+		if collider.CanInteract:
+			plrGUI.update_text(currentBody.InteractText)
+		else:
+			plrGUI.update_text("")
 		return
 	
 	currentBody = collider
-	plrGUI.update_text(currentBody.InteractText)
+	#plrGUI.update_text(currentBody.InteractText)
 	if Input.is_action_just_pressed("interact") && currentBody.CanInteract:
 		currentBody.OnInteract.emit()
 
@@ -119,9 +122,13 @@ func _unhandled_input(event : InputEvent):
 		var mouseInput : Vector2
 		mouseInput.x += event.relative.x
 		mouseInput.y += event.relative.y
+		
 		self.rotation_degrees.y -= mouseInput.x * mouse_sensitivity
 		head.rotation_degrees.x -= mouseInput.y * mouse_sensitivity
 		
+		# Clamp vertical rotation to prevent unnatural head movement
+		head.rotation_degrees.x = clamp(head.rotation_degrees.x, -90, 90)
+		self.rotation_degrees.x = clamp(self.rotation_degrees.x, -90, 90)
 
 func start_camera_shake(time):
 	if !is_shaking:
