@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt6nfytv86b7y"]
+
+[ext_resource type="PackedScene" uid="uid://u3l3mdmhumkb" path="res://seb_assets/lever_base.glb" id="1_ax5kn"]
+
+[node name="lever_base" instance=ExtResource("1_ax5kn")]
+
+[node name="LeverBase" parent="." index="0"]
+transform = Transform3D(0.274062, 0, 0, 0, 0.0951888, 0, 0, 0, 0.641019, 0, 0, 0)

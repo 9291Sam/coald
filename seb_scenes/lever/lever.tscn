@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://jsj8utwqmg2g"]
+
+[ext_resource type="Script" uid="uid://dxfhoefcl8bog" path="res://seb_scenes/lever/lever.gd" id="1_c6dmp"]
+[ext_resource type="PackedScene" uid="uid://bkmbregtkjmol" path="res://seb_assets/lever_handle.tscn" id="2_quf5o"]
+[ext_resource type="PackedScene" uid="uid://dt6nfytv86b7y" path="res://seb_assets/lever_base.tscn" id="3_m80ip"]
+
+[node name="Lever" type="Node3D"]
+script = ExtResource("1_c6dmp")
+
+[node name="lever_handle" parent="." instance=ExtResource("2_quf5o")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="lever_base" parent="." instance=ExtResource("3_m80ip")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)

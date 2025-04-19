@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://blwpj2l13c312"]
+[gd_scene load_steps=11 format=3 uid="uid://blwpj2l13c312"]
 
 [ext_resource type="PackedScene" uid="uid://brpt71jl5cg2q" path="res://scenes/player.tscn" id="2_ha7gw"]
 [ext_resource type="PackedScene" uid="uid://cfgl8xtgqt3c0" path="res://seb_scenes/insideTrainUi/inside_train_ui.tscn" id="2_prddy"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dhlkpke1buris" path="res://seb_scenes/go_to_lever.gd" id="4_3dcbo"]
 [ext_resource type="Script" uid="uid://ca57dsd460x76" path="res://seb_scenes/insideTrain/pressure_down_button.gd" id="5_2c3bn"]
 [ext_resource type="Script" uid="uid://bi8pbxxhdbn3l" path="res://seb_scenes/insideTrain/pressure_up_button.gd" id="5_jo0r2"]
+[ext_resource type="PackedScene" uid="uid://jsj8utwqmg2g" path="res://seb_scenes/lever/lever.tscn" id="8_lbmxp"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_48sdy"]
 viewport_path = NodePath("SubViewport")
@@ -97,3 +98,6 @@ shape = SubResource("BoxShape3D_2il1l")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="leave_train_button"]
 size = Vector3(0.275879, 0.105957, 0.204102)
+
+[node name="Lever" parent="." instance=ExtResource("8_lbmxp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.890186, 0.685245, -1.61866)

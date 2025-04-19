@@ -59,6 +59,7 @@ offset_bottom = 134.0
 text = "Engine Temperature"
 
 [node name="Label" type="Label" parent="Label"]
+layout_mode = 0
 offset_left = 218.5
 offset_top = -6.0
 offset_right = 342.5
