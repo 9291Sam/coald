@@ -1,10 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://cx11eo1e5bev2"]
+[gd_scene load_steps=14 format=3 uid="uid://cx11eo1e5bev2"]
 
+[ext_resource type="Script" uid="uid://ceomgy53xuplj" path="res://seb_scenes/lever/lever_pull_world_script.gd" id="1_a3pqi"]
 [ext_resource type="PackedScene" uid="uid://csvsyu30x01vw" path="res://seb_assets/train.tscn" id="1_j3anv"]
 [ext_resource type="PackedScene" uid="uid://brpt71jl5cg2q" path="res://scenes/player.tscn" id="3_iw334"]
 [ext_resource type="Material" uid="uid://dp5qqws7h0dn2" path="res://snowflake_process_material.tres" id="4_ovhle"]
-[ext_resource type="Environment" uid="uid://cxqg2sxxgpl4e" path="res://world_background_env.tres" id="4_svmf2"]
 [ext_resource type="SphereMesh" uid="uid://b1rksv11b8oh1" path="res://snowflake_sphere.tres" id="5_a3pqi"]
+[ext_resource type="PackedScene" uid="uid://lm1lawys2f7c" path="res://seb_assets/tracks.tscn" id="5_vh7de"]
+[ext_resource type="PackedScene" uid="uid://jsj8utwqmg2g" path="res://seb_scenes/lever/lever.tscn" id="7_a3pqi"]
+[ext_resource type="Script" uid="uid://b1mj1bgng5dfy" path="res://seb_scenes/bool_button.gd" id="8_xh3om"]
+[ext_resource type="Script" uid="uid://ckldh3yafw1ya" path="res://seb_scenes/lever/csg_sphere_3d.gd" id="9_5mksg"]
 
 [sub_resource type="GDScript" id="GDScript_5vw27"]
 script/source = "extends Interactible3D
@@ -17,10 +21,18 @@ func _interact():
 [sub_resource type="BoxShape3D" id="BoxShape3D_iw334"]
 size = Vector3(0.272949, 0.172974, 0.234375)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_5mksg"]
+size = Vector3(0.232666, 0.671021, 0.40094)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xh3om"]
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+
 [node name="LeverPull" type="Node3D"]
+script = ExtResource("1_a3pqi")
 
 [node name="train" parent="." instance=ExtResource("1_j3anv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.89473, 0.461695, 1.09441)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.647368, 1.094)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14217, -0.73575, 0)
@@ -50,5 +62,42 @@ randomness = 0.7
 process_material = ExtResource("4_ovhle")
 draw_pass_1 = ExtResource("5_a3pqi")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="Player"]
+transform = Transform3D(-0.670944, 0, 0.741508, 0, 1, 0, -0.741508, 0, -0.670944, 0, 1.39683, 0)
+light_energy = 0.015
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("4_svmf2")
+
+[node name="tracks" parent="." instance=ExtResource("5_vh7de")]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, -2, 0.39, 0)
+
+[node name="tracks" parent="tracks" instance=ExtResource("5_vh7de")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
+
+[node name="tracks2" parent="." instance=ExtResource("5_vh7de")]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, -2, 0.39, 24)
+
+[node name="Lever" parent="." instance=ExtResource("7_a3pqi")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.60749, -0.211952, 0.940511)
+
+[node name="Interactible3D" type="Area3D" parent="Lever"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.221796, 0.211952, 0.110445)
+script = ExtResource("8_xh3om")
+InteractText = "Press [E] to pull"
+metadata/_custom_type_script = "uid://cdsqsmnr5smng"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lever/Interactible3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.192993, -0.16449, -0.131012)
+shape = SubResource("BoxShape3D_5mksg")
+
+[node name="OminiousBlinkingLight" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.40843, 4.1178, 6.53882)
+material = SubResource("StandardMaterial3D_xh3om")
+script = ExtResource("9_5mksg")
+
+[node name="FinalTrainLight" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 29.7785)
+visible = false
+light_energy = 16.0
+spot_range = 12.2324
+spot_angle = 24.8289

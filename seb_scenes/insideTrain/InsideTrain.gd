@@ -1,7 +1,7 @@
 extends Node3D
 
 var time_traveling = 0.0;
-const THIS_TRAVEL_TIME = 5.0;
+const THIS_TRAVEL_TIME = 35.0;
 
 enum InsideTrainState {
 	BeforeMoving,
@@ -70,7 +70,7 @@ func _process(delta: float) -> void:
 				get_tree().change_scene_to_file("res://seb_scenes/lever/lever_pull.tscn")
 			pass;
 			
-	print("Current State: %d | time_till_over %f" % [state, THIS_TRAVEL_TIME - time_traveling])
+	#print("Current State: %d | time_till_over %f" % [state, THIS_TRAVEL_TIME - time_traveling])
 
 			
 	
