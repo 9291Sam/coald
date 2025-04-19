@@ -20,6 +20,34 @@ shape = SubResource("ConcavePolygonShape3D_jrwbu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25211, 0.465669, -3.10341)
 shape = SubResource("BoxShape3D_hgasb")
 
+[node name="OmniLight3D2" type="OmniLight3D" parent="StaticBody3D/CollisionShape3D2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12647, -0.324057, 2.18268)
+light_color = Color(0.607267, 0.321833, 0.123318, 1)
+light_energy = 1.135
+light_size = 1.0
+light_specular = 0.0
+light_bake_mode = 0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="StaticBody3D/CollisionShape3D2/OmniLight3D2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.304419, -0.301692, -5.56219)
+light_energy = 0.235
+light_bake_mode = 1
+distance_fade_begin = 23.5
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="StaticBody3D/CollisionShape3D2/OmniLight3D2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38918, 0.189563, 0.0826874)
+light_color = Color(0.607267, 0.321833, 0.123318, 1)
+light_energy = 1.135
+light_size = 1.0
+light_specular = 0.0
+light_bake_mode = 0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="StaticBody3D/CollisionShape3D2/OmniLight3D2/OmniLight3D2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.304419, -0.301692, -5.56219)
+light_energy = 0.235
+light_bake_mode = 1
+distance_fade_begin = 23.5
+
 [node name="SpotLight3D" type="SpotLight3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, -0.99519, 0.0979651, 0, -0.0979651, -0.99519, 1.40925, 0.579645, 3.24258)
 light_energy = 16.0

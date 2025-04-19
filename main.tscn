@@ -1,15 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://piq1qo6dhgdh"]
+[gd_scene load_steps=11 format=3 uid="uid://piq1qo6dhgdh"]
 
+[ext_resource type="Environment" uid="uid://cxqg2sxxgpl4e" path="res://world_background_env.tres" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://brpt71jl5cg2q" path="res://scenes/player.tscn" id="1_8teri"]
 [ext_resource type="Script" uid="uid://bld284tee5b0q" path="res://test_scene_assets/go_to_train_button.gd" id="2_dgpk1"]
+[ext_resource type="Material" uid="uid://dp5qqws7h0dn2" path="res://snowflake_process_material.tres" id="3_5vw27"]
+[ext_resource type="SphereMesh" uid="uid://b1rksv11b8oh1" path="res://snowflake_sphere.tres" id="3_272bh"]
 [ext_resource type="PackedScene" uid="uid://csvsyu30x01vw" path="res://seb_assets/train.tscn" id="4_7mycd"]
 [ext_resource type="PackedScene" uid="uid://ux28kgv0xqoq" path="res://seb_assets/station.tscn" id="5_272bh"]
 [ext_resource type="PackedScene" uid="uid://lm1lawys2f7c" path="res://seb_assets/tracks.tscn" id="6_5vw27"]
-
-[sub_resource type="Environment" id="Environment_lquwl"]
-background_mode = 2
-ambient_light_source = 2
-ambient_light_color = Color(0.0627451, 0.0627451, 0.0627451, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yjcof"]
 albedo_color = Color(0.721569, 0.784314, 0, 1)
@@ -20,10 +18,19 @@ size = Vector3(0.272949, 0.172974, 0.234375)
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_lquwl")
+environment = ExtResource("1_7mycd")
 
 [node name="Player" parent="." instance=ExtResource("1_8teri")]
 transform = Transform3D(0.639654, 0, -0.768663, 0, 1, 0, 0.768663, 0, 0.639654, -0.587573, 0.551473, 3.22183)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Player"]
+transform = Transform3D(0.639654, 0, 0.768663, 0, 1, 0, -0.768663, 0, 0.639654, 0, 2.5507, 0)
+cast_shadow = 0
+amount = 524688
+lifetime = 2.44
+randomness = 0.7
+process_material = ExtResource("3_5vw27")
+draw_pass_1 = ExtResource("3_272bh")
 
 [node name="TestPlace" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.485046, 0.712285, 0.156724)
@@ -49,6 +56,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177556, -0.751807, 4.24154)
 [node name="station" parent="." instance=ExtResource("5_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.445043, -2.38419e-07, 2.67989)
 
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="station"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.44408, 1.21629, -0.0564263)
+size = Vector3(3.99544, 3.34706, 9.8103)
+
 [node name="tracks" parent="." instance=ExtResource("6_5vw27")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.304487, 0.0182563, 1.24434)
 
@@ -60,9 +71,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.6701, 0)
 size = Vector3(100, 1, 100)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.71643, 0.996251, 5.64901)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.71053, 0.996251, 5.65055)
+light_energy = 0.175
 
 [node name="OmniLight3D" type="OmniLight3D" parent="OmniLight3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.301639, -0.301692, -5.57166)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.304419, -0.301692, -5.56219)
+light_energy = 0.235
 light_bake_mode = 1
 distance_fade_begin = 23.5
