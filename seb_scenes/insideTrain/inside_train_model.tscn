@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://jv4og0qgm7lt"]
+
+[ext_resource type="PackedScene" uid="uid://bnbcdbsjc02fj" path="res://seb_scenes/insideTrain/inside_train.glb" id="1_211ca"]
+
+[node name="inside_train" instance=ExtResource("1_211ca")]
+
+[node name="InsideTrain" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.333417, 0, 0, 0, 0.670115, 0, 0, 0)

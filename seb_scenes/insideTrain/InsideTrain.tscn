@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://blwpj2l13c312"]
+[gd_scene load_steps=19 format=3 uid="uid://blwpj2l13c312"]
 
 [ext_resource type="PackedScene" uid="uid://brpt71jl5cg2q" path="res://scenes/player.tscn" id="2_ha7gw"]
 [ext_resource type="PackedScene" uid="uid://cfgl8xtgqt3c0" path="res://seb_scenes/insideTrainUi/inside_train_ui.tscn" id="2_prddy"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://ca57dsd460x76" path="res://seb_scenes/insideTrain/pressure_down_button.gd" id="5_2c3bn"]
 [ext_resource type="Script" uid="uid://bi8pbxxhdbn3l" path="res://seb_scenes/insideTrain/pressure_up_button.gd" id="5_jo0r2"]
 [ext_resource type="PackedScene" uid="uid://jsj8utwqmg2g" path="res://seb_scenes/lever/lever.tscn" id="8_lbmxp"]
+[ext_resource type="PackedScene" uid="uid://jv4og0qgm7lt" path="res://seb_scenes/insideTrain/inside_train_model.tscn" id="9_2h3ju"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_48sdy"]
 viewport_path = NodePath("SubViewport")
@@ -15,22 +16,35 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="BoxShape3D" id="BoxShape3D_2il1l"]
 size = Vector3(0.272949, 0.172974, 0.234375)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_2h3ju"]
+size = Vector3(1.32764, 0.110352, 1.02261)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y7fb8"]
+size = Vector3(0.371063, 0.973206, 0.972412)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ra5nl"]
+size = Vector3(1.31323, 1.42377, 0.0983887)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eju2l"]
+size = Vector3(0.0979004, 1.38977, 1.04733)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3y08r"]
+size = Vector3(1.27527, 1.63574, 0.0839844)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yggph"]
+size = Vector3(0.796753, 0.157715, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ubks"]
+size = Vector3(0.767944, 0.0844727, 1)
+
 [node name="InsideTrain" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("2_ha7gw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0160423, 0.736395, -1.70546)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.160494, -0.204845, -0.108949)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01955, 0, -0.996331)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.328943, 0.0900562, -1.79557)
-use_collision = true
-size = Vector3(3.83228, 1, 4.50977)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(-0.0349867, 0.999388, 0, -0.999388, -0.0349867, 0, 0, 0, 1, 2.483, 1.20035, -1.79557)
-size = Vector3(3.83228, 1, 4.50977)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0320221, 0, 0.101775)
+light_energy = 0.185
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
@@ -39,57 +53,61 @@ handle_input_locally = false
 [node name="InsideTrainUi" parent="SubViewport" instance=ExtResource("2_prddy")]
 
 [node name="gague_display" type="Sprite3D" parent="."]
-transform = Transform3D(-1.09278e-08, 0, 0.25, 0, 0.25, 0, -0.25, 0, -1.09278e-08, -1.04601, 1.14777, -1.38128)
+transform = Transform3D(-5.46392e-09, 0, -0.125, 0, 0.125, 0, 0.125, 0, -5.46392e-09, 0.605894, -0.231876, -0.001652)
 texture = SubResource("ViewportTexture_48sdy")
 
 [node name="temo_up_button" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.31298, 1.19763, -0.9368)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.775, 0.263, -0.358)
 script = ExtResource("3_prddy")
 InteractText = "Press [E] to increase temperature"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="temo_up_button"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178223, 0.0786743, 0.0214844)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.536456, -1.1286, 1.47884)
 shape = SubResource("BoxShape3D_2il1l")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="temo_up_button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.554278, -1.20727, 1.45735)
 size = Vector3(0.275879, 0.105957, 0.204102)
 
 [node name="temp_down_button" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28442, 0.806846, -0.969752)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.741, -0.038, -0.311)
 script = ExtResource("4_2il1l")
 InteractText = "Press [E] to decreate temperature"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="temp_down_button"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178223, 0.0786743, 0.0214844)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.536456, -1.1286, 1.47884)
 shape = SubResource("BoxShape3D_2il1l")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="temp_down_button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.554278, -1.20727, 1.45735)
 size = Vector3(0.275879, 0.105957, 0.204102)
 
 [node name="pressure_up_button" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28442, 1.21366, -2.13034)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.046, 0.881, -1.896)
 script = ExtResource("5_jo0r2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="pressure_up_button"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178223, 0.0786743, 0.0214844)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.534004, -1.13303, 1.48126)
 shape = SubResource("BoxShape3D_2il1l")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="pressure_up_button"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.551826, -1.2117, 1.45977)
 size = Vector3(0.275879, 0.105957, 0.204102)
 
 [node name="pressure_down_button" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28479, 0.806846, -2.14544)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.716, 0.033, -1.098)
 script = ExtResource("5_2c3bn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="pressure_down_button"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178223, 0.0786743, 0.0214844)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.534004, -1.13303, 1.48126)
 shape = SubResource("BoxShape3D_2il1l")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="pressure_down_button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.551826, -1.2117, 1.45977)
 size = Vector3(0.275879, 0.105957, 0.204102)
 
 [node name="leave_train_button" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.373579, 0.973231, -0.104012)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.176, -0.642, 0.416)
 script = ExtResource("4_3dcbo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="leave_train_button"]
@@ -100,4 +118,38 @@ shape = SubResource("BoxShape3D_2il1l")
 size = Vector3(0.275879, 0.105957, 0.204102)
 
 [node name="Lever" parent="." instance=ExtResource("8_lbmxp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.890186, 0.685245, -1.61866)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.408374, -0.648956, -0.371585)
+
+[node name="inside_train" parent="." instance=ExtResource("9_2h3ju")]
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0249259, -0.68619, 0.00211954)
+shape = SubResource("BoxShape3D_2h3ju")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.852345, -0.206348, 0.0136026)
+shape = SubResource("BoxShape3D_y7fb8")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0409927, 0.0642209, 0.573081)
+shape = SubResource("BoxShape3D_ra5nl")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.667747, 0.0989804, 0.0199344)
+shape = SubResource("BoxShape3D_eju2l")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0298233, 0.221966, -0.554718)
+shape = SubResource("BoxShape3D_3y08r")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.184288, 0.861911, -0.0133744)
+shape = SubResource("BoxShape3D_yggph")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.702153, 0.712026, 0, -0.712026, 0.702153, 0, 0, 0, 1, 0.429254, 0.583614, -0.0172563)
+shape = SubResource("BoxShape3D_2ubks")

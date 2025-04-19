@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfgl8xtgqt3c0"]
+[gd_scene load_steps=5 format=3 uid="uid://cfgl8xtgqt3c0"]
 
 [ext_resource type="Script" uid="uid://cplrkpg1a4x71" path="res://seb_scenes/insideTrainUi/inside_train_ui.gd" id="1_xjaor"]
 [ext_resource type="Texture2D" uid="uid://c44uqtm3txyr1" path="res://seb_scenes/insideTrainUi/pressure_gage.svg" id="2_43f08"]
 [ext_resource type="Texture2D" uid="uid://dla2ynp4ifdk1" path="res://seb_scenes/insideTrainUi/temperature.svg" id="3_8nas0"]
+[ext_resource type="Texture2D" uid="uid://4rdm53hsq73u" path="res://seb_scenes/insideTrainUi/Ellipse 1.png" id="4_43f08"]
 
 [node name="InsideTrainUi" type="Node2D"]
 script = ExtResource("1_xjaor")
@@ -65,3 +66,8 @@ offset_top = -6.0
 offset_right = 342.5
 offset_bottom = 17.0
 text = "Engine Pressure"
+
+[node name="Ellipse1" type="Sprite2D" parent="."]
+position = Vector2(285, 408)
+scale = Vector2(0.24942, 0.25)
+texture = ExtResource("4_43f08")
