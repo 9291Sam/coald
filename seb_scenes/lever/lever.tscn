@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://jsj8utwqmg2g"]
+[gd_scene load_steps=5 format=3 uid="uid://jsj8utwqmg2g"]
 
 [ext_resource type="Script" uid="uid://dxfhoefcl8bog" path="res://seb_scenes/lever/lever.gd" id="1_c6dmp"]
 [ext_resource type="PackedScene" uid="uid://bkmbregtkjmol" path="res://seb_assets/lever_handle.tscn" id="2_quf5o"]
 [ext_resource type="PackedScene" uid="uid://dt6nfytv86b7y" path="res://seb_assets/lever_base.tscn" id="3_m80ip"]
+[ext_resource type="AudioStream" uid="uid://7tjiwf1aexe4" path="res://seb_scenes/lever/lever_pull_sound.mp3" id="4_quf5o"]
 
 [node name="Lever" type="Node3D"]
 script = ExtResource("1_c6dmp")
@@ -12,3 +13,7 @@ transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
 [node name="lever_base" parent="." instance=ExtResource("3_m80ip")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_quf5o")
+attenuation_model = 3

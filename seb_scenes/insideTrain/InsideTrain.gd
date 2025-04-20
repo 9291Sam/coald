@@ -1,7 +1,7 @@
 extends Node3D
 
 var time_traveling = 0.0;
-const THIS_TRAVEL_TIME = 35.0;
+var THIS_TRAVEL_TIME = 35.0;
 
 enum InsideTrainState {
 	BeforeMoving,
@@ -40,6 +40,16 @@ func _ready():
 	temp_velocity = randf_range(-0.5, 0.5);
 	pressure_velocity = randf_range(-0.5, 0.5);
 	
+	match GlobalGameState.global_game_state:
+		GlobalGameState.GlobalState.FirstState:
+			THIS_TRAVEL_TIME = 45.0;
+		GlobalGameState.GlobalState.SecondState:
+			THIS_TRAVEL_TIME = 60.0;
+		GlobalGameState.GlobalState.FirstState:
+			THIS_TRAVEL_TIME = 90.0;
+			pass
+	
+var has_played_once = false;
 
 func _process(delta: float) -> void:
 	match state:
@@ -54,6 +64,12 @@ func _process(delta: float) -> void:
 		InsideTrainState.Moving:
 			time_traveling += delta;
 			read_gague_manipulators();
+			
+			if GlobalGameState.global_game_state == GlobalGameState.GlobalState.SecondState && time_traveling > 0.61 * THIS_TRAVEL_TIME:
+				if !$Player/DeerSquisher.is_playing() and !has_played_once:
+					$Player.start_camera_shake(0.25, 0.07);
+					$Player/DeerSquisher.play()
+					has_played_once = true;
 			
 			if time_traveling > THIS_TRAVEL_TIME:
 				$SubViewport/InsideTrainUi.enable_light = true;

@@ -45,6 +45,7 @@ func _process(delta):
 		if shake_timer <= 0:
 			is_shaking = false
 			camera.transform.origin = camera_original_position
+			camera_shake_violence = 0.01;
 		else:
 			camera.transform.origin = camera_original_position + Vector3(
 				randf_range(-camera_shake_violence, camera_shake_violence),
@@ -130,10 +131,11 @@ func _unhandled_input(event : InputEvent):
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x, -90, 90)
 		self.rotation_degrees.x = clamp(self.rotation_degrees.x, -90, 90)
 
-func start_camera_shake(time):
+func start_camera_shake(time, violence = 0.01):
 	if !is_shaking:
 		is_shaking = true
 		shake_timer = time
+		camera_shake_violence = violence
 
 #endregion
 

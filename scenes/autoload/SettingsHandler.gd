@@ -34,6 +34,7 @@ func _apply_settings():
 	
 	if SettingsDict.fullscreen:
 		DisplayServer.window_set_mode(DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN)
+		DisplayServer.window_set_size(Vector2(screen_size[0], screen_size[1]))
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WindowMode.WINDOW_MODE_WINDOWED)
 	
@@ -46,7 +47,7 @@ func _apply_settings():
 
 ## Loads settings from settings file
 func _load_settings():
-	var file = FileAccess.open(SETTINGS_FILE_PATH, FileAccess.READ)
+	var file = null; #FileAccess.open(SETTINGS_FILE_PATH, FileAccess.READ)
 	if file == null:
 		SettingsDict = DEFAULT_SETTINGS
 		_save_settings()
@@ -55,8 +56,8 @@ func _load_settings():
 
 ## Saves settings in settings file
 func _save_settings():
-	var file = FileAccess.open(SETTINGS_FILE_PATH, FileAccess.WRITE)
-	file.store_string(JSON.stringify(SettingsDict))
+	#var file = FileAccess.open(SETTINGS_FILE_PATH, FileAccess.WRITE)
+	#file.store_string(JSON.stringify(SettingsDict))
 	return
 
 func _get_resolution_as_str():

@@ -1,9 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://blwpj2l13c312"]
+[gd_scene load_steps=23 format=3 uid="uid://blwpj2l13c312"]
 
 [ext_resource type="Script" uid="uid://518jfr86c8vm" path="res://seb_scenes/insideTrain/InsideTrain.gd" id="1_3y08r"]
 [ext_resource type="PackedScene" uid="uid://brpt71jl5cg2q" path="res://scenes/player.tscn" id="2_ha7gw"]
 [ext_resource type="PackedScene" uid="uid://cfgl8xtgqt3c0" path="res://seb_scenes/insideTrainUi/inside_train_ui.tscn" id="2_prddy"]
+[ext_resource type="AudioStream" uid="uid://cdtav8w5vk2jd" path="res://seb_assets/best_strike.mp3" id="3_y7fb8"]
 [ext_resource type="Script" uid="uid://b1mj1bgng5dfy" path="res://seb_scenes/bool_button.gd" id="4_3y08r"]
+[ext_resource type="AudioStream" uid="uid://d127vr6lmbju7" path="res://inside_howling_wind.mp3" id="4_ra5nl"]
 [ext_resource type="PackedScene" uid="uid://jsj8utwqmg2g" path="res://seb_scenes/lever/lever.tscn" id="8_lbmxp"]
 [ext_resource type="PackedScene" uid="uid://jv4og0qgm7lt" path="res://seb_scenes/insideTrain/inside_train_model.tscn" id="9_2h3ju"]
 [ext_resource type="Environment" uid="uid://cxqg2sxxgpl4e" path="res://world_background_env.tres" id="10_y7fb8"]
@@ -16,8 +18,11 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="BoxShape3D" id="BoxShape3D_2il1l"]
 size = Vector3(0.272949, 0.172974, 0.234375)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ra5nl"]
+albedo_color = Color(0.921569, 0, 0.345098, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_2lw65"]
-size = Vector3(0.151611, 1.19934, 0.296326)
+size = Vector3(0.594482, 1.19934, 0.296326)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2h3ju"]
 size = Vector3(1.32764, 0.110352, 1.02261)
@@ -50,6 +55,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.160494, -0.204845, -0.10894
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0320221, 0, 0.101775)
 light_energy = 0.185
 
+[node name="DeerSquisher" type="AudioStreamPlayer3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.160494, 0.204845, 0.108949)
+stream = ExtResource("3_y7fb8")
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="Player"]
+transform = Transform3D(0.639654, 0, 0.768663, 0, 1, 0, -0.768663, 0, 0.639654, -2.10066, -0.551473, -2.5125)
+stream = ExtResource("4_ra5nl")
+autoplay = true
+parameters/looping = true
+
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
 handle_input_locally = false
@@ -69,9 +84,12 @@ InteractText = "Press [E] to increase temperature"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.536456, -1.1286, 1.47884)
 shape = SubResource("BoxShape3D_2il1l")
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="temp_up_button"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.554278, -1.20727, 1.45735)
-size = Vector3(0.275879, 0.105957, 0.204102)
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="temp_up_button"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.419, -1.189, 1.545)
+radius = 0.1
+height = 0.1
+sides = 16
+material = SubResource("StandardMaterial3D_ra5nl")
 
 [node name="temp_down_button" type="Area3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.741, -0.038, -0.311)
@@ -79,15 +97,18 @@ script = ExtResource("4_3y08r")
 InteractText = "Press [E] to decrease temperature"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="temp_down_button"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.536456, -1.1286, 1.47884)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.424939, -1.07475, 1.40037)
 shape = SubResource("BoxShape3D_2il1l")
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="temp_down_button"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.554278, -1.20727, 1.45735)
-size = Vector3(0.275879, 0.105957, 0.204102)
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="temp_down_button"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.367, -1.162, 1.45)
+radius = 0.1
+height = 0.1
+sides = 16
+material = SubResource("StandardMaterial3D_ra5nl")
 
 [node name="pressure_up_button" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.046, 0.881, -1.896)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.046, 0.881, -1.881)
 script = ExtResource("4_3y08r")
 InteractText = "Press [E] to increase pressure"
 
@@ -95,9 +116,12 @@ InteractText = "Press [E] to increase pressure"
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.534004, -1.13303, 1.48126)
 shape = SubResource("BoxShape3D_2il1l")
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="pressure_up_button"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.551826, -1.2117, 1.45977)
-size = Vector3(0.275879, 0.105957, 0.204102)
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="pressure_up_button"]
+transform = Transform3D(-2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0, 0, 0.5, 0.482, -1.162, 1.45)
+radius = 0.1
+height = 0.1
+sides = 16
+material = SubResource("StandardMaterial3D_ra5nl")
 
 [node name="pressure_down_button" type="Area3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.716, 0.033, -1.098)
@@ -108,9 +132,12 @@ InteractText = "Press [E] to decrease pressure"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.534004, -1.13303, 1.48126)
 shape = SubResource("BoxShape3D_2il1l")
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="pressure_down_button"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.551826, -1.2117, 1.45977)
-size = Vector3(0.275879, 0.105957, 0.204102)
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="pressure_down_button"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.324, -1.224, 1.365)
+radius = 0.1
+height = 0.1
+sides = 16
+material = SubResource("StandardMaterial3D_ra5nl")
 
 [node name="leave_train_button" type="Area3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.176, -0.642, 0.416)
@@ -132,7 +159,7 @@ transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 
 script = ExtResource("4_3y08r")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Lever/lever_pull"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0635987, 0.178345, 0.0157776)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.157837, 0.178345, 0.0157776)
 shape = SubResource("BoxShape3D_2lw65")
 
 [node name="inside_train" parent="." instance=ExtResource("9_2h3ju")]

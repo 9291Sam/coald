@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://piq1qo6dhgdh"]
+[gd_scene load_steps=13 format=3 uid="uid://piq1qo6dhgdh"]
 
 [ext_resource type="Environment" uid="uid://cxqg2sxxgpl4e" path="res://world_background_env.tres" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://brpt71jl5cg2q" path="res://scenes/player.tscn" id="1_8teri"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ux28kgv0xqoq" path="res://seb_assets/station.tscn" id="5_272bh"]
 [ext_resource type="PackedScene" uid="uid://lm1lawys2f7c" path="res://seb_assets/tracks.tscn" id="6_5vw27"]
 [ext_resource type="Script" uid="uid://b1mj1bgng5dfy" path="res://seb_scenes/bool_button.gd" id="9_kek77"]
+[ext_resource type="AudioStream" uid="uid://btecm1c6e57hu" path="res://howling_wind.mp3" id="10_4c57u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_52idf"]
 size = Vector3(0.272949, 0.172974, 0.234375)
@@ -33,6 +34,12 @@ lifetime = 2.44
 randomness = 0.7
 process_material = ExtResource("3_5vw27")
 draw_pass_1 = ExtResource("3_272bh")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Player"]
+transform = Transform3D(0.639654, 0, 0.768663, 0, 1, 0, -0.768663, 0, 0.639654, -2.10066, -0.551473, -2.5125)
+stream = ExtResource("10_4c57u")
+autoplay = true
+parameters/looping = true
 
 [node name="TestPlace" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.485046, 0.712285, 0.156724)

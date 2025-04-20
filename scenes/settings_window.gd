@@ -30,7 +30,7 @@ func _on_apply_settings() -> void:
 	SettingsHandler.SettingsDict = {"resolution": resolution, "vsync": vsync, "fullscreen": fullscreen, "volume": AudioSlider.value}
 	
 	SettingsHandler._apply_settings()
-	SettingsHandler._save_settings()
+	SettingsHandler._save_settings()	
 
 func _on_close():
 	Closing.emit()
