@@ -37,6 +37,7 @@ var pressure_velocity = 0.0;
 var normalization_factor = 0.90;
 
 func _ready():
+	$Player.footstep_noise = 1;
 	temp_velocity = randf_range(-0.5, 0.5);
 	pressure_velocity = randf_range(-0.5, 0.5);
 	
@@ -45,7 +46,7 @@ func _ready():
 			THIS_TRAVEL_TIME = 45.0;
 		GlobalGameState.GlobalState.SecondState:
 			THIS_TRAVEL_TIME = 60.0;
-		GlobalGameState.GlobalState.FirstState:
+		GlobalGameState.GlobalState.ThirdState:
 			THIS_TRAVEL_TIME = 90.0;
 			pass
 	
@@ -60,6 +61,7 @@ func _process(delta: float) -> void:
 				$Lever/lever_pull.CanInteract = false;
 				$Lever.lever_state_inorm = 0.0;
 				state = InsideTrainState.Moving;
+				$TrainMovePlayer.play();
 			pass;
 		InsideTrainState.Moving:
 			time_traveling += delta;
@@ -70,6 +72,7 @@ func _process(delta: float) -> void:
 					$Player.start_camera_shake(0.25, 0.07);
 					$Player/DeerSquisher.play()
 					has_played_once = true;
+					
 			
 			if time_traveling > THIS_TRAVEL_TIME:
 				$SubViewport/InsideTrainUi.enable_light = true;
@@ -77,6 +80,10 @@ func _process(delta: float) -> void:
 				if $Lever/lever_pull.is_active:
 					$Lever.lever_state_inorm = 0.5;
 					state = InsideTrainState.AfterMoving;
+					$TrainMovePlayer.stop();
+					$TrainStopPlayer.play();
+					if GlobalGameState.global_game_state == GlobalGameState.GlobalState.ThirdState:
+						$Player.start_camera_shake(1.25, 0.17);
 					
 					
 			pass;
@@ -129,5 +136,11 @@ func move_gagues(delta):
 	var green_zone_rand_pressure = remap(random_smooth_add_normalized2, 0.0, 1.0, pressure_normal_base, pressure_normal_peak);
 	$SubViewport/InsideTrainUi.pressure_gague_normalized = green_zone_rand_temoerature + pressure_velocity;
 	$SubViewport/InsideTrainUi.temperature_gague_normalized = green_zone_rand_pressure + temp_velocity;
+	
+	if $SubViewport/InsideTrainUi.pressure_gague_normalized > 0.65:
+		if !$SteamEmitter.playing:
+			$SteamEmitter.play();
+	else:
+		$SteamEmitter.stop();
 	
 	

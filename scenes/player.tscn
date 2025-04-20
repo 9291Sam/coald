@@ -105,3 +105,21 @@ collide_with_bodies = false
 libraries = {
 &"": SubResource("AnimationLibrary_auuwx")
 }
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
+offset_left = 253.0
+offset_top = 103.0
+offset_right = 925.0
+offset_bottom = 577.0
+text = "Welcome Temporary Worker,
+
+If you’re reading this letter, I trust you made it onto the train without issue. Tonight we are not carrying any passengers, all you need to do is drive the train down a few stops. This is a fairly simple train to operate, however it can be temperamental at times. Behind you are two sets of buttons, one for temperature and one for pressure. Use them to keep the gauges stable. If either drifts too far, the train will let you know in one way or another, that's for sure.
+
+Occasionally the train will need to come to a stop for an upcoming switching station. Whenever this happens, there will be a blinking red light. When it activates, simply pull the parking brake, wait a few seconds, and the train will be stopped.  Step outside, walk forward, pull the lever down the tracks. Don't wander, simply flip the lever and return.
+
+Finally, there is the aforementioned parking brake, it's just below this letter. Push it forward to start the engine, pull it back when the light blinks. You can't miss it.
+
+P.S. There are no wrong turns on this track, just stop when you are asked to."
+
+[node name="FootStepPlayer" type="AudioStreamPlayer3D" parent="."]

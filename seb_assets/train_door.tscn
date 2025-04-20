@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cehmav2wxskwm"]
+
+[ext_resource type="PackedScene" uid="uid://ootdubx6opex" path="res://seb_assets/train_door.glb" id="1_vxh1t"]
+
+[node name="train_door" instance=ExtResource("1_vxh1t")]
+
+[node name="Cube_001" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

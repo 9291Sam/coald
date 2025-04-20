@@ -30,16 +30,31 @@ var inputEnabled := true # can the player move?
 var aimlookEnabled := true # can the player look around?
 var interactionsEnabled := true # can the player interact with Interactibles3D?
 var camera_shake_violence := 0.01; # 0.05 violent, 0.01
+var time_alive = 0.0;
+
+var footstep_noise = 0; # 0 = brick, 1 = metal, 2 = snow
+
+var brick_footstep = preload("res://seb_assets/brick_footstep.mp3");
+var metal_footstep = preload("res://seb_assets/metal_footstep.mp3");
+var snow_footstep = preload("res://seb_assets/snowy_footstep.mp3");
+
 
 #region Main control flow 
 
 func _ready():
+	$RichTextLabel.visible = false;
 	$MeshInstance3D.hide()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	GameManager.player = self
 	camera_original_position = camera.transform.origin
 	
 func _process(delta):
+	if time_alive < 0.1:
+		match footstep_noise:
+			0: $FootStepPlayer.stream = brick_footstep;
+			1: $FootStepPlayer.stream = metal_footstep;
+			2: $FootStepPlayer.stream = snow_footstep;
+	time_alive += delta;
 	if is_shaking:
 		shake_timer -= delta
 		if shake_timer <= 0:
@@ -74,6 +89,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 		if moving_time_since_last_shake > time_between_shakes:
+			$FootStepPlayer.play();
 			start_camera_shake(0.075)
 			moving_time_since_last_shake = 0.0
 	else:
@@ -92,22 +108,40 @@ func _physics_process(delta: float) -> void:
 
 #region Processing input
 
+var frames_glazed = 0
+
 func _process_interact():
 	if !interactionsEnabled:
 		return
 	if not InteractRaycast.is_colliding():
+		$RichTextLabel.visible = false;
+		frames_glazed = 0;
 		plrGUI.update_text("")
 		return
 	var collider = InteractRaycast.get_collider()
 	if not collider is Interactible3D:
+		$RichTextLabel.visible = false;
+		frames_glazed = 0;
 		plrGUI.update_text("")
 		return
 	if collider == currentBody and not Input.is_action_just_pressed("interact"): # This is a bit hacky imo, but works
 		if collider.CanInteract:
-			plrGUI.update_text(currentBody.InteractText)
+			var should_be_text = currentBody.InteractText;
+			if should_be_text != "HACK_TEXT_DO_NOT_RENDER":
+				plrGUI.update_text(currentBody.InteractText)
+			else:
+				frames_glazed += 1;
+				
+				if frames_glazed > 5:
+					$RichTextLabel.visible = true;
 		else:
+			$RichTextLabel.visible = false;
+			frames_glazed = 0;
 			plrGUI.update_text("")
 		return
+		
+	
+	$RichTextLabel.visible = false;
 	
 	currentBody = collider
 	#plrGUI.update_text(currentBody.InteractText)

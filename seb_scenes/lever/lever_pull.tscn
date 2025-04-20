@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://cx11eo1e5bev2"]
+[gd_scene load_steps=20 format=3 uid="uid://cx11eo1e5bev2"]
 
 [ext_resource type="Script" uid="uid://ceomgy53xuplj" path="res://seb_scenes/lever/lever_pull_world_script.gd" id="1_a3pqi"]
 [ext_resource type="PackedScene" uid="uid://csvsyu30x01vw" path="res://seb_assets/train.tscn" id="1_j3anv"]
 [ext_resource type="PackedScene" uid="uid://brpt71jl5cg2q" path="res://scenes/player.tscn" id="3_iw334"]
+[ext_resource type="PackedScene" uid="uid://cehmav2wxskwm" path="res://seb_assets/train_door.tscn" id="4_058hp"]
 [ext_resource type="Material" uid="uid://dp5qqws7h0dn2" path="res://snowflake_process_material.tres" id="4_ovhle"]
 [ext_resource type="SphereMesh" uid="uid://b1rksv11b8oh1" path="res://snowflake_sphere.tres" id="5_a3pqi"]
 [ext_resource type="PackedScene" uid="uid://lm1lawys2f7c" path="res://seb_assets/tracks.tscn" id="5_vh7de"]
@@ -10,17 +11,22 @@
 [ext_resource type="AudioStream" uid="uid://btecm1c6e57hu" path="res://howling_wind.mp3" id="6_goe5g"]
 [ext_resource type="PackedScene" uid="uid://jsj8utwqmg2g" path="res://seb_scenes/lever/lever.tscn" id="7_a3pqi"]
 [ext_resource type="Script" uid="uid://b1mj1bgng5dfy" path="res://seb_scenes/bool_button.gd" id="8_xh3om"]
-[ext_resource type="Script" uid="uid://ckldh3yafw1ya" path="res://seb_scenes/lever/csg_sphere_3d.gd" id="9_5mksg"]
+[ext_resource type="AudioStream" uid="uid://bigbkf0jea8vs" path="res://seb_assets/thunder_strike_final.mp3" id="11_ndl86"]
+[ext_resource type="Texture2D" uid="uid://babisgch86my5" path="res://seb_assets/bloodyspatter.jpg" id="13_tmx2w"]
+[ext_resource type="Script" uid="uid://ce70pdd5m1lky" path="res://seb_scenes/lever/spatterscreipt.gd" id="14_tom5c"]
+[ext_resource type="Script" uid="uid://g2ls5yykblxd" path="res://fire_light.gd" id="15_ndl86"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tom5c"]
+albedo_texture = ExtResource("13_tmx2w")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iw334"]
-size = Vector3(0.272949, 0.172974, 0.234375)
+size = Vector3(0.272949, 0.902237, 0.479492)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5mksg"]
 size = Vector3(0.232666, 0.671021, 0.40094)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xh3om"]
-emission_enabled = true
-emission = Color(1, 0, 0, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_058hp"]
+size = Vector3(78.6308, 18.0561, 1)
 
 [node name="LeverPull" type="Node3D"]
 script = ExtResource("1_a3pqi")
@@ -28,22 +34,29 @@ script = ExtResource("1_a3pqi")
 [node name="train" parent="." instance=ExtResource("1_j3anv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.647368, 1.094)
 
+[node name="CSGBox3D" type="CSGBox3D" parent="train"]
+transform = Transform3D(0.00895352, 0, 0.99996, 0, 1, 0, -0.99996, 0, 0.00895352, 2.25713, 0.197779, 2.81235)
+material_override = SubResource("StandardMaterial3D_tom5c")
+size = Vector3(0.419678, 0.853989, 2.19824)
+script = ExtResource("14_tom5c")
+
+[node name="go_back_inside_button" type="Area3D" parent="train"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40862, 0.544782, -2.41869)
+script = ExtResource("8_xh3om")
+InteractText = "Press [E] to enter train"
+CanInteract = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="train/go_back_inside_button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.361045, 0.463562, 0.237092)
+shape = SubResource("BoxShape3D_iw334")
+
+[node name="train_door" parent="train/go_back_inside_button" instance=ExtResource("4_058hp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.211227, 0.689861, 0)
+
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14217, -0.73575, 0)
 use_collision = true
 size = Vector3(100, 1, 100)
-
-[node name="go_back_inside_button" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.591383, 1.19215, -1.32469)
-script = ExtResource("8_xh3om")
-CanInteract = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="go_back_inside_button"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178223, 0.0786743, 0.0214844)
-shape = SubResource("BoxShape3D_iw334")
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="go_back_inside_button"]
-size = Vector3(0.275879, 0.105957, 0.204102)
 
 [node name="Player" parent="." instance=ExtResource("3_iw334")]
 transform = Transform3D(-0.670944, 0, -0.741508, 0, 1, 0, 0.741508, 0, -0.670944, -1.69978, -0.00973773, -1.45719)
@@ -71,6 +84,9 @@ stream = ExtResource("6_goe5g")
 autoplay = true
 parameters/looping = true
 
+[node name="ThunderPlayer" type="AudioStreamPlayer3D" parent="Player"]
+stream = ExtResource("11_ndl86")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("6_3wy3e")
 
@@ -84,7 +100,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
 transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, -2, 0.39, 24)
 
 [node name="Lever" parent="." instance=ExtResource("7_a3pqi")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.60749, -0.211952, 0.940511)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.607, -0.212, 25)
 
 [node name="Interactible3D" type="Area3D" parent="Lever"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.221796, 0.211952, 0.110445)
@@ -96,10 +112,15 @@ metadata/_custom_type_script = "uid://cdsqsmnr5smng"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.192993, -0.16449, -0.131012)
 shape = SubResource("BoxShape3D_5mksg")
 
-[node name="OminiousBlinkingLight" type="CSGSphere3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.40843, 4.1178, 6.53882)
-material = SubResource("StandardMaterial3D_xh3om")
-script = ExtResource("9_5mksg")
+[node name="FireLightDistance" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.74886, 0.102201, 8.52385)
+visible = false
+light_color = Color(0.607267, 0.321833, 0.123318, 1)
+light_energy = 1.135
+light_size = 1.0
+light_specular = 0.0
+light_bake_mode = 0
+script = ExtResource("15_ndl86")
 
 [node name="FinalTrainLight" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 29.7785)
@@ -107,3 +128,26 @@ visible = false
 light_energy = 16.0
 spot_range = 12.2324
 spot_angle = 24.8289
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 24.4456)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0242, 0.933655, 3.01902)
+shape = SubResource("BoxShape3D_058hp")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.00771427, 0, -0.99997, 0, 1, 0, 0.99997, 0, 0.00771427, -6.2237, 8.01003, -25.81)
+shape = SubResource("BoxShape3D_058hp")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-0.999881, 0, -0.0154281, 0, 1, 0, 0.0154281, 0, -0.999881, 19.5375, 8.79255, -32.2326)
+shape = SubResource("BoxShape3D_058hp")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.00895347, 0, 0.99996, 0, 1, 0, -0.99996, 0, 0.00895347, 7.10655, 4.8646, -13.1253)
+shape = SubResource("BoxShape3D_058hp")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(-0.670944, 0, 0.741508, 0, 1, 0, -0.741508, 0, -0.670944, -0.0947826, 1.1956, 5.80196)
+light_energy = 0.015

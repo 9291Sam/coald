@@ -12,7 +12,14 @@ const traik_kill_travel_time = 1.15;
 
 var horn_sound = preload("res://seb_assets/train_horn.wav")
 
+func _ready():
+	$Player.footstep_noise = 2;
+	
+var time_alive = 0.0;
+var thunder_triggered = false;
+
 func _process(delta):
+	time_alive += delta;
 	match state:
 		OutsideState.BeforePull:
 			$FinalTrainLight.position.z = train_kill_velocity * traik_kill_travel_time;
@@ -21,18 +28,23 @@ func _process(delta):
 				$Lever.lever_state_inorm = 0.5;
 				$Lever/Interactible3D.CanInteract = false;
 				GlobalGameState.global_game_state += 1;
+				thunder_triggered = true;
 				state = OutsideState.AfterPull;
+				
+			if GlobalGameState.global_game_state == GlobalGameState.GlobalState.SecondState and not thunder_triggered and time_alive > 15.0:
+				thunder_triggered = true;
+				$Player/ThunderPlayer.play();
 			pass
 		OutsideState.AfterPull:
-			$go_back_inside_button.CanInteract = true;
-			if $go_back_inside_button.is_active:
+			$train/go_back_inside_button.CanInteract = true;
+			if $train/go_back_inside_button.is_active:
 				get_tree().change_scene_to_file("res://seb_scenes/insideTrain/InsideTrain.tscn")
 				
-			if GlobalGameState.global_game_state >= GlobalGameState.GlobalState.ThirdState:
+			if GlobalGameState.global_game_state >= GlobalGameState.GlobalState.FourthState:
 				if $WorldEnvironment.environment != null:
 					$WorldEnvironment.environment.fog_depth_end = 1000.0;
 				$train.translate(Vector3(0, -1000, 0));
-				$OminiousBlinkingLight.should_blink = true;
+				$FireLightDistance.visible = true;
 				
 				if $Player.position.x > 0.0:
 					$FinalTrainLight.visible = true;
